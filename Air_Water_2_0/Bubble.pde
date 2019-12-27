@@ -8,8 +8,8 @@ class Bubble {
   color c;
 
   Bubble() {
-    x = width/2-50;
-    y = height/2-130;
+    x = width/2;
+    y = height/2;
     g = 0;
 
     speedX = random(-0.4, 0.4);
@@ -22,7 +22,7 @@ class Bubble {
     g++;
   }
 
-  void draw() {
+  void display() {
     noStroke();
     fill(c);
     ellipse(x, y, g, g);
