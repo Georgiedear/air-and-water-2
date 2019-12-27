@@ -10,7 +10,7 @@ void draw() {
 
   //For the Input from the bubble wand
   //For now lets do a key press to display the growth of a bubble
-  if (keyPressed == true) {
+  if (keyPressed == true && bubbles.size() >= 1) {
     Bubble lastBubble = bubbles.get(bubbles.size() -1);
     lastBubble.grow();
   }

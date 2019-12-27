@@ -10,7 +10,7 @@ class Bubble {
   Bubble() {
     x = width/2-50;
     y = height/2-130;
-    g = growth;
+    g = 0;
 
     speedX = random(-0.4, 0.4);
     speedY = random(-0.4, 0.4);
