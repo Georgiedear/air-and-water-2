@@ -1,8 +1,7 @@
 //import processing.serial.*;
 //Serial myPort;  // Create object from Serial class
 ArrayList<Bubble> bubbles;
-boolean keyReleased;
-
+float growth;
 
 void setup() {
 
@@ -10,7 +9,7 @@ void setup() {
 
   bubbles = new ArrayList<Bubble>();
   bubbles.add(new Bubble());
-  keyReleased = false;
+  growth = 0;
 }
 
 
@@ -40,6 +39,12 @@ void draw() {
   
   //create a new bubble
 
+}
+
+void keyReleased() {
+  
+bubbles.add(new Bubble());
+    
 }
 
  
