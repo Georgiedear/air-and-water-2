@@ -8,8 +8,6 @@ class Bubble {
   color c;
 
   Bubble() {
-
-
     x = width/2-50;
     y = height/2-130;
     g = growth;
@@ -21,21 +19,16 @@ class Bubble {
   }
 
   void grow () {
-    noStroke();
-    fill(c);
-    ellipse(x, y, g++, g++);
+    g++;
   }
 
-  void stay() {
+  void draw() {
     noStroke();
-
     fill(c);
     ellipse(x, y, g, g);
   }
 
-
   void move() {
-
     x = x+speedX;
     y = y+speedY;
   }
