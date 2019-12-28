@@ -3,7 +3,6 @@
 ArrayList<Bubble> bubbles;
 int storedTime;
 int totalTime;
-boolean finished;
 
 void setup() {
   size(800, 800);
@@ -31,32 +30,24 @@ void draw() {
   }
   ////A Bubbles death
 
-  int passedTime = millis() - storedTime;
 
-  if (passedTime > totalTime) {
-    println("I'm dead");
-    storedTime = millis();
-    //bubbles.remove(1);
+  for (int i = bubbles.size()-1; i >=0; i--) {
+
+    int passedTime = millis() - storedTime;
+    int total = bubbles.size();
+    if (passedTime > totalTime) {
+      println("I'm dead" + total);
+      storedTime = millis();
+      bubbles.remove(i); 
+
+     
+    }
   }
+
 
 
   //If there are no Bubbles left make the for loop go 
   //through the array forward not backwards.
-  //for (int i = 0; i < bubbles.size(); i++) {
-  //  if (bubbles.size() < 0 ) {
-  //    Bubble bubblePop = bubbles.get(i); 
-  //      //bubblePop.finished();
-            
-  //        int passedTime = millis() - storedTime;
-
-
-  //    if (bubblePop.finished() && passedTime > totalTime ) {
-  //      println("I'm dead");
-  //      storedTime = millis();
-  //      bubbles.remove(1);
-  //    }
-  //  }
-  //}
 
   //BUBBLE SPRITE???? I MADE THIS BY ACCIDENT
   //for (int i = bubbles.size()-1; i >= 0; i--) {

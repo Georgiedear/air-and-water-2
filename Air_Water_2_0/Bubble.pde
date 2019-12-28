@@ -33,7 +33,4 @@ class Bubble {
     y = y+speedY;
   }
 
-  //boolean finished() {
-  //  return true; 
-  //}
 }
