@@ -18,10 +18,10 @@ void setup() {
   totalTime = 5000;
   finished = false;
 
-  String myPort = Serial.list()[4];
-  //mySerial = new Serial(this, "/dev/cu.usbmodem1411", 9600); //1411
+  //String myPort = Serial.list()[4];
+  mySerial = new Serial(this, "/dev/cu.usbmodem1411", 9600); //1411
 
-  mySerial = new Serial(this, myPort, 9600); //1411
+  //mySerial = new Serial(this, myPort, 9600); //1411
 }
 
 
@@ -29,15 +29,15 @@ void draw() {
   background(255);
   println(myRecievedVal);
 
-  while ( mySerial.available() > 0) {  // If my data is available,
-    //myRecievedVal = mySerial.read(); // read it and store it in myRecievedVal
-    myString = mySerial.readStringUntil(nl);
+  //while ( mySerial.available() > 0) {  // If my data is available,
+    myRecievedVal = mySerial.read(); // read it and store it in myRecievedVal
+    //myString = mySerial.readStringUntil(nl);
 
 
-    if (myString != null) {
+    //if (myString != null) {
 
-      myRecievedVal = int(myString);
-    }
+      //myRecievedVal = int(myString);
+    //}
 
     //For the Input from the bubble wand
     //For now lets do a key press to display the growth of a bubble
@@ -94,4 +94,4 @@ void draw() {
   //  bubbles.add(new Bubble());
   //  storedTime = millis();
   //}
-}
+//}

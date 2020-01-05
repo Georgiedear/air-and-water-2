@@ -51,7 +51,7 @@ void loop() {
   // wind formula derived from a wind tunnel data, annemometer and some fancy Excel regressions
   // this scalin doesn't have any temperature correction in it yet
   float windMPH =  pow((((float)windADunits - 264.0) / 85.6814), 3.36814);
-  Serial.print(" MPH\t");
+  //Serial.print(" MPH\t");
 
 
   // subtract the last reading:
@@ -80,18 +80,17 @@ void loop() {
 
       if (averageWind > threshold) {
         analogWrite (averageWind, bubbsOn);
-        //Serial.println(bubbsOn);
+        Serial.println(bubbsOn);
         Serial.write(bubbsOn);
       }
   
       else {
         analogWrite (averageWind, bubbsOff);
-       // Serial.println(bubbsOff);
+        Serial.println(bubbsOff);
         Serial.write(bubbsOff);
       }
-  delay(100);
 
-
+delay(300);
   ////////////////////////////////////////////////////////////////////
 
 
