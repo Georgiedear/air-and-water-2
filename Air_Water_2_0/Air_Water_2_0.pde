@@ -1,95 +1,60 @@
 //Air + Water 2. 0 
 import processing.serial.*;
-Serial mySerial;  // Create object from Serial class
 
-int myRecievedVal;      // Data received from the serial port
+// Create object from Serial class.
+Serial mySerial;
 
+// Data received from the serial port.
+String windSpeedString = "";
+float windSpeed = 0.0;
+// If the windSpeed is greater than this
+// we consider the bubble as being blown.
+final float blowingThreshold = 0.05;
+// Keep track of if a bubble is being blown.
+boolean blowingBubble = false;
 
-ArrayList<Bubble> bubbles;
-int storedTime;
-int totalTime;
+ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
+final String port = "/dev/cu.usbmodem14101";
 
 void setup() {
   size(800, 800);
-  bubbles = new ArrayList<Bubble>();
-  storedTime = millis();
-  totalTime = 5000;
-  finished = false;
-
-  //String myPort = Serial.list()[4];
-  mySerial = new Serial(this, "/dev/cu.usbmodem1411", 9600); //1411
-
-  //mySerial = new Serial(this, myPort, 9600); //1411
+  mySerial = new Serial(this, port, 9600);
 }
-
 
 void draw() {
   background(255);
-  println(myRecievedVal);
 
-  while ( mySerial.available() > 0) {  // If my data is available,
-    myRecievedVal = mySerial.read(); // read it and store it in myRecievedVal
-    //myString = mySerial.readStringUntil(nl);
-
-
-    //if (myString != null) {
-
-      //myRecievedVal = int(myString);
-    //}
-
-    //For the Input from the bubble wand
-    //For now lets do a key press to display the growth of a bubble
-    if (myRecievedVal == 1 && bubbles.size() >= 1) {
-      Bubble lastBubble = bubbles.get(bubbles.size() -1);
-      lastBubble.grow();
-      lastBubble.inital();
-    } else {
-
-      if (myRecievedVal == 0  ) {
-
-        bubbles.add(new Bubble());
-        storedTime = millis();
-      }
-    }
-    //Displays the bubbles
-    for (Bubble bubble : bubbles) {
-      bubble.move();
-      bubble.display();
-    }
-
-
-    //Have one Bubble Appear at the start of the program
-
-    ////A Bubbles death
-
-
-    for (int i = bubbles.size()-1; i >=0; i--) {
-
-      int passedTime = millis() - storedTime;
-      int total = bubbles.size();
-      if (passedTime > totalTime) {
-        println("I'm dead" + total);
-        storedTime = millis();
-        bubbles.remove(i);
-      }
-    }
-
-
-
-    //If there are no Bubbles left make the for loop go 
-    //through the array forward not backwards.
-
-    //BUBBLE SPRITE???? I MADE THIS BY ACCIDENT
-    //for (int i = bubbles.size()-1; i >= 0; i--) {
-    //  if(i < 1 ) {
-    //  bubbles.add(new Bubble());
-    //  }
-    //}
+  windSpeedString = mySerial.readStringUntil('\n');
+  if (windSpeedString != null) {
+    windSpeed = float(windSpeedString);
+    println(windSpeed);
   }
 
-  //Add a new bubble after blowing one
-  //void keyReleased() {
-  //  bubbles.add(new Bubble());
-  //  storedTime = millis();
-  //}
+  if (!blowingBubble && windSpeed > blowingThreshold) {
+    blowingBubble = true;
+    bubbles.add(new Bubble());
+  }
+
+  // Get a handle to the last bubble.
+  Bubble lastBubble = bubbles.size() > 0 ? bubbles.get(bubbles.size() -1) : null;
+
+  if (blowingBubble && lastBubble != null) {
+    lastBubble.grow();
+  }
+  
+  if (blowingBubble && windSpeed < blowingThreshold && lastBubble != null) {
+    blowingBubble = false;
+    lastBubble.release();
+  }
+
+  for (int i = bubbles.size()-1; i >=0; i--) {
+    Bubble bubble = bubbles.get(i);
+    // Update and draw the bubble.
+    bubble.update();
+    bubble.draw();
+    // A Bubbles death.
+    if (bubble.isDead) {
+      bubbles.remove(i);
+    }
+  }
 }

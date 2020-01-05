@@ -1,3 +1,5 @@
+final int lifeTime = 15000;
+
 class Bubble {
   float x;
   float y;
@@ -6,6 +8,8 @@ class Bubble {
   float speedX;
   float speedY;
   color c;
+  int releasedTime = -1;  
+  boolean isDead = false;
 
   Bubble() {
     x = width/2;
@@ -22,22 +26,36 @@ class Bubble {
     g++;
   }
 
-  void display() {
+  void draw() {
     noStroke();
     fill(c);
     ellipse(x, y, g, g);
   }
-  
-  void inital() {
-  
-   noStroke();
-    fill(c);
-    ellipse(x, y, 1, 1);
+
+  void release() {
+    println("I am released.");
+    releasedTime = millis();
+  }
+
+  void dead() {
+    println("I am dead.");
+    isDead = true;
+  }
+
+  void update() {
+    move();
+
+    boolean isReleased = releasedTime != -1;
+    if (isReleased && !isDead) {
+      int timeSinceRelease = millis() - releasedTime;
+      if (timeSinceRelease > lifeTime) {
+        dead();
+      }
+    }
   }
 
   void move() {
     x = x+speedX;
     y = y+speedY;
   }
-
 }
