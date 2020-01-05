@@ -90,7 +90,6 @@ void loop() {
         Serial.write(bubbsOff);
       }
 
-delay(300);
   ////////////////////////////////////////////////////////////////////
 
 
@@ -108,4 +107,7 @@ delay(300);
   //  Serial.print(tempC);
   //  Serial.println(" C");
   //delay(100);
+
+  delay(5);
+
 }

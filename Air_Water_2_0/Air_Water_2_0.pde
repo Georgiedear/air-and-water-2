@@ -2,8 +2,6 @@
 import processing.serial.*;
 Serial mySerial;  // Create object from Serial class
 
-String myString = null;
-int nl = 10;
 int myRecievedVal;      // Data received from the serial port
 
 
@@ -29,7 +27,7 @@ void draw() {
   background(255);
   println(myRecievedVal);
 
-  //while ( mySerial.available() > 0) {  // If my data is available,
+  while ( mySerial.available() > 0) {  // If my data is available,
     myRecievedVal = mySerial.read(); // read it and store it in myRecievedVal
     //myString = mySerial.readStringUntil(nl);
 
@@ -41,13 +39,13 @@ void draw() {
 
     //For the Input from the bubble wand
     //For now lets do a key press to display the growth of a bubble
-    if (myRecievedVal == 0 && bubbles.size() >= 1) {
+    if (myRecievedVal == 1 && bubbles.size() >= 1) {
       Bubble lastBubble = bubbles.get(bubbles.size() -1);
       lastBubble.grow();
       lastBubble.inital();
     } else {
 
-      if (myRecievedVal == 1 && bubbles.size() <= 0  ) {
+      if (myRecievedVal == 0  ) {
 
         bubbles.add(new Bubble());
         storedTime = millis();
@@ -94,4 +92,4 @@ void draw() {
   //  bubbles.add(new Bubble());
   //  storedTime = millis();
   //}
-//}
+}
