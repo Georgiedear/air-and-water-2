@@ -27,6 +27,13 @@ class Bubble {
     fill(c);
     ellipse(x, y, g, g);
   }
+  
+  void inital() {
+  
+   noStroke();
+    fill(c);
+    ellipse(x, y, 1, 1);
+  }
 
   void move() {
     x = x+speedX;
