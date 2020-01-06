@@ -7,18 +7,27 @@ Serial mySerial;
 // Data received from the serial port.
 String windSpeedString = "";
 float windSpeed = 0.0;
+
 // If the windSpeed is greater than this
 // we consider the bubble as being blown.
 final float blowingThreshold = 0.1;
+
 // Keep track of if a bubble is being blown.
 boolean blowingBubblePrevious = false;
 
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
 final String port = "/dev/cu.usbmodem1421";
 
+//BUBBLE IMAGE
+PImage bubbleImg; 
+
+//WATER COLORS
+PImage breezeGreen, cloud, cherryRed, pink_hush, yellow_splash;
+
 void setup() {
   size(800, 800);
   mySerial = new Serial(this, port, 9600);
+  bubbleImg =  loadImage("img/Bubble_Draft.png");
 }
 
 void draw() {

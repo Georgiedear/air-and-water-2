@@ -28,8 +28,9 @@ class Bubble {
 
   void draw() {
     noStroke();
-    fill(c);
-    ellipse(x, y, g, g);
+    imageMode(CENTER);
+    blendMode(DIFFERENCE);
+    image(bubbleImg, x, y, g, g);
   }
 
   void release() {
@@ -58,4 +59,6 @@ class Bubble {
     x = x+speedX;
     y = y+speedY;
   }
+  
+   
 }
