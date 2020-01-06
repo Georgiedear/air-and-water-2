@@ -22,8 +22,8 @@ class Bubble {
     c = color(random(255), random(255), random(255));
   }
 
-  void grow () {
-    g++;
+  void grow (float windSpeed) {
+    g += windSpeed;
   }
 
   void draw() {
