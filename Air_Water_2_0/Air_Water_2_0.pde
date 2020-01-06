@@ -9,12 +9,12 @@ String windSpeedString = "";
 float windSpeed = 0.0;
 // If the windSpeed is greater than this
 // we consider the bubble as being blown.
-final float blowingThreshold = 0.05;
+final float blowingThreshold = 0.1;
 // Keep track of if a bubble is being blown.
 boolean blowingBubblePrevious = false;
 
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
-final String port = "/dev/cu.usbmodem14101";
+final String port = "/dev/cu.usbmodem1421";
 
 void setup() {
   size(800, 800);
@@ -60,7 +60,7 @@ void draw() {
   // Save as previous.
   blowingBubblePrevious = blowingBubble;
 
-  for (int i = bubbles.size()-1; i >=0; i--) {
+  for (int i = 0; i < bubbles.size(); i++) {
     Bubble bubble = bubbles.get(i);
     // Update and draw the bubble.
     bubble.update();
