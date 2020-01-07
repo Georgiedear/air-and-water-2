@@ -1,4 +1,4 @@
-final int lifeTime = 15000;
+final int lifeTime = 5000;
 
 class Bubble {
   float x;
@@ -29,8 +29,8 @@ class Bubble {
   void draw() {
     noStroke();
     imageMode(CENTER);
-    blendMode(DIFFERENCE);
     image(bubbleImg, x, y, g, g);
+    blendMode(BLEND);
   }
 
   void release() {
@@ -59,6 +59,4 @@ class Bubble {
     x = x+speedX;
     y = y+speedY;
   }
-  
-   
 }
