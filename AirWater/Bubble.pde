@@ -1,4 +1,4 @@
-final int lifeTime = 5000;
+final int lifeTime = 3000;
 
 class Bubble {
   float x;
@@ -28,9 +28,8 @@ class Bubble {
 
   void draw() {
     noStroke();
-    imageMode(CENTER);
-    image(bubbleImg, x, y, g, g);
-    blendMode(BLEND);
+    fill(c);
+    ellipse(x, y, g, g);
   }
 
   void release() {

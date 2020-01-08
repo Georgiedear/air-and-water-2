@@ -32,17 +32,25 @@ PImage cherryRed;
 PImage pink_hush;
 PImage yellow_splash;
 
+String images[] = {
+  "img/Air+Water[breeze_green].png", 
+  "img/Air+Water[cherry_red].png", 
+  "img/Air+Water[cloud].png", 
+  "img/Air+Water[cool_blue].png", 
+  "img/Air+Water[pink_hush].png", 
+  "img/Air+Water[yellow_splash].png" 
+};
+
+PImage waterColorImages[] = new PImage[images.length];
+
 void setup() {
-  size(800, 800, P2D);
+  size(800, 800);
   bubbleImg =  loadImage("img/Bubble_Draft.png");
 
-  breezeGreen = loadImage("img/Air+Water[breeze_green].png");
-  cloud = loadImage("img/Air+Water[breeze_green].png");
-  coolBlue = loadImage("img/Air+Water[cool_blue].png");
-
-  cherryRed = loadImage("img/Air+Water[breeze_green].png");
-  pink_hush = loadImage("img/Air+Water[breeze_green].png");
-  yellow_splash = loadImage("img/Air+Water[breeze_green].png");
+  for (int i = 0; i < images.length; i++) {
+    String imagePath = images[i];
+    waterColorImages[i] = loadImage(imagePath);
+  }
 
   if (useSensor) {
     mySerial = new Serial(this, port, 9600);
