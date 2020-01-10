@@ -14,8 +14,9 @@
   Paul Badger
   code in the public domain*/
 
+//Sensor 1
 const int OutPin  = A0;   // wind sensor analog pin  hooked up to Wind P sensor "OUT" pin
-const int TempPin = A2;   // temp sesnsor analog pin hooked up to Wind P sensor "TMP" pin
+
 
 void setup() {
   Serial.begin(9600);
@@ -24,6 +25,8 @@ void setup() {
 void loop() {
   // Read wind.
   int windADunits = analogRead(OutPin);
+
+
   // Serial.print("RW ");   // print raw A/D for debug
   // Serial.print(windADunits);
   // Serial.print("\t");
@@ -32,12 +35,14 @@ void loop() {
   // annemometer and some fancy Excel regressions.
   // This scalin doesn't have any temperature correction in it yet.
   float offset = 264.0;
-  float windMPH = windADunits < offset
-                  ? 0
-                  : pow((((float)windADunits - offset) / 85.6814), 3.36814);
-                  
+
+  float windMPH = windADunits < offset ? 0 : pow((((float)windADunits - offset) / 85.6814), 3.36814);
+ 
   Serial.print(windMPH);
+  //  Serial.print(windMPH1);
+  //  Serial.print(windMPH2);
+
   Serial.print("\n");
-  
+
   delay(50);
 }

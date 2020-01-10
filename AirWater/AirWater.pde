@@ -8,30 +8,16 @@ Serial mySerial;
 String windSpeedString = "";
 float windSpeed = 0.0;
 
-// If the windSpeed is greater than this
-// we consider the bubble as being blown.
-final float blowingThreshold = 0.1;
-
-// Keep track of if a bubble is being blown.
-boolean blowingBubblePrevious = false;
-
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
 ArrayList<WaterColor> waterColors = new ArrayList<WaterColor>();
 
 final String port = "/dev/cu.usbmodem1421";
-final boolean useSensor = false;
+final boolean useSensor = true;
 
-//BUBBLE IMAGE
+// Bubble image.
 PImage bubbleImg; 
 
-//Water Colors
-PImage coolBlue; 
-PImage breezeGreen; 
-PImage cloud;
-PImage cherryRed; 
-PImage pink_hush;
-PImage yellow_splash;
-
+// Water color images.
 String images[] = {
   "img/Air+Water[breeze_green].png", 
   "img/Air+Water[cherry_red].png", 
@@ -43,8 +29,15 @@ String images[] = {
 
 PImage waterColorImages[] = new PImage[images.length];
 
+Wand wands[] = new Wand[3];
+
 void setup() {
   size(800, 800);
+
+  wands[0] = new Wand(width * 0.25, height * 0.5);
+  wands[1] = new Wand(width * 0.5, height * 0.5);
+  wands[2]= new Wand(width * 0.75, height * 0.5);
+
   bubbleImg =  loadImage("img/Bubble_Draft.png");
 
   for (int i = 0; i < images.length; i++) {
@@ -74,44 +67,18 @@ void draw() {
 
   if (useSensor) {
     windSpeedString = mySerial.readStringUntil('\n');
-    if (windSpeedString != null) {
-      windSpeed = float(windSpeedString);
-      println(windSpeed);
+    // On startup the reading can be incorrect so we check length
+    if (windSpeedString != null && windSpeedString.length() == 6) {
+      String[] windSpeeds = split(windSpeedString, ':');
+      for (int i = 0; i < windSpeeds.length; i++) {
+        float speed = float(windSpeeds[i]);
+        Wand w = wands[i];
+        w.update(speed);
+      }
     }
   }
-
-  // True if the user is blowing right now.
-  boolean blowingBubble = windSpeed > blowingThreshold;
-
-  // Transition from not blowing to blowing.
-  boolean startedBlowing = !blowingBubblePrevious && blowingBubble;
-  if (startedBlowing) {
-    bubbles.add(new Bubble());
-  }
-
-  // Get a handle to the last bubble.
-  Bubble lastBubble = bubbles.size() > 0 ? bubbles.get(bubbles.size() -1) : null;
-
-  // Transition from blowing to not blowing.
-  boolean stoppedBlowing = blowingBubblePrevious && !blowingBubble;
-  if (stoppedBlowing) {
-    if (lastBubble != null) {
-      lastBubble.release();
-    }
-  }
-
-  // If we're blowing a bubble.
-  if (blowingBubble) {
-    if (lastBubble != null) {
-      lastBubble.grow(windSpeed);
-    }
-  }
-
-  // Save as previous.
-  blowingBubblePrevious = blowingBubble;
 
   for (WaterColor w : waterColors) {
-    w.update();
     w.draw();
   }
 

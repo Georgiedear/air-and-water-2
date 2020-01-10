@@ -1,4 +1,4 @@
-final int lifeTime = 3000;
+final int lifeTime = 5000;
 
 class Bubble {
   float x;
@@ -11,9 +11,9 @@ class Bubble {
   int releasedTime = -1;  
   boolean isDead = false;
 
-  Bubble() {
-    x = width/2;
-    y = height/2;
+  Bubble(float x, float y) {
+    this.x = x;
+    this.y = y;
     g = 0;
 
     speedX = random(-0.4, 0.4);
@@ -23,13 +23,15 @@ class Bubble {
   }
 
   void grow (float windSpeed) {
-    g += windSpeed;
+    g += windSpeed*2;
   }
 
   void draw() {
     noStroke();
-    fill(c);
+    fill(c, 50);
+
     ellipse(x, y, g, g);
+    tint(255, 255);
   }
 
   void release() {
