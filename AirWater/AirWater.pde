@@ -6,13 +6,11 @@ Serial mySerial;
 
 // Data received from the serial port.
 String windSpeedString = "";
-float windSpeed = 0.0;
 
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
 ArrayList<WaterColor> waterColors = new ArrayList<WaterColor>();
 
 final String port = "/dev/cu.usbmodem1421";
-final boolean useSensor = true;
 
 // Bubble image.
 PImage bubbleImg; 
@@ -45,36 +43,20 @@ void setup() {
     waterColorImages[i] = loadImage(imagePath);
   }
 
-  if (useSensor) {
-    mySerial = new Serial(this, port, 9600);
-  }
-}
-
-void keyPressed() {
-  if (keyCode == UP) {
-    windSpeed = 1;
-  }
-}
-
-void keyReleased() {
-  if (keyCode == UP) {
-    windSpeed = 0;
-  }
+  mySerial = new Serial(this, port, 9600);
 }
 
 void draw() {
   background(255);
 
-  if (useSensor) {
-    windSpeedString = mySerial.readStringUntil('\n');
-    // On startup the reading can be incorrect so we check length
-    if (windSpeedString != null && windSpeedString.length() == 6) {
-      String[] windSpeeds = split(windSpeedString, ':');
-      for (int i = 0; i < windSpeeds.length; i++) {
-        float speed = float(windSpeeds[i]);
-        Wand w = wands[i];
-        w.update(speed);
-      }
+  windSpeedString = mySerial.readStringUntil('\n');
+  // On startup the reading can be incorrect so we check length
+  if (windSpeedString != null && windSpeedString.length() == 6) {
+    String[] windSpeeds = split(windSpeedString, ':');
+    for (int i = 0; i < windSpeeds.length; i++) {
+      float speed = float(windSpeeds[i]);
+      Wand w = wands[i];
+      w.update(speed);
     }
   }
 

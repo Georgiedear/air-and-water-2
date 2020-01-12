@@ -1,5 +1,3 @@
-final int lifeTime = 5000;
-
 class Bubble {
   float x;
   float y;
@@ -10,6 +8,7 @@ class Bubble {
   color c;
   int releasedTime = -1;  
   boolean isDead = false;
+  int lifeTime = 5000;
 
   Bubble(float x, float y) {
     this.x = x;
@@ -29,18 +28,15 @@ class Bubble {
   void draw() {
     noStroke();
     fill(c, 50);
-
     ellipse(x, y, g, g);
     tint(255, 255);
   }
 
   void release() {
-    println("I am released.");
     releasedTime = millis();
   }
 
   void dead() {
-    println("I am dead.");
     isDead = true;
   }
 
