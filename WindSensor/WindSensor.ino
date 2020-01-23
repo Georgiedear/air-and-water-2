@@ -23,6 +23,12 @@ void setup() {
   Serial.begin(9600);
 }
 
+float round_to_dp(float in_value, int decimal_place) {
+  float multiplier = powf( 10.0f, decimal_place );
+  in_value = roundf( in_value * multiplier ) / multiplier;
+  return in_value;
+}
+
 float readSensor(int sensor) {
   // Read wind.
   int windADunits = analogRead(sensor);
@@ -33,7 +39,7 @@ float readSensor(int sensor) {
   float offset = 264.0;
 
   float windMPH = windADunits < offset ? 0 : pow((((float)windADunits - offset) / 85.6814), 3.36814);
-  return windMPH;
+  return round_to_dp(windMPH, 2);
 }
 
 void loop() {
@@ -41,13 +47,6 @@ void loop() {
   float mph2 = readSensor(sensor2);
   float mph3 = readSensor(sensor3);
 
-  Serial.print(mph1);
-  Serial.print(":");
-  Serial.print(0);
-  Serial.print(":");
-  Serial.print(0);
-
-  Serial.print("\n");
-
-  delay(50);
+  Serial.print(String("") + mph1 + ":" + mph2 + ":" + mph3 + "\n");
+  delay(16);
 }

@@ -4,13 +4,10 @@ import processing.serial.*;
 // Create object from Serial class.
 Serial mySerial;
 
-// Data received from the serial port.
-String windSpeedString = "";
-
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
 ArrayList<WaterColor> waterColors = new ArrayList<WaterColor>();
 
-final String port = "/dev/cu.usbmodem1421";
+final String port = "/dev/cu.usbmodem14201";
 
 // Bubble image.
 PImage bubbleImg; 
@@ -46,21 +43,40 @@ void setup() {
   mySerial = new Serial(this, port, 9600);
 }
 
+void updateWands() {
+  if (mySerial.available() == 0) {
+    return;
+  }
+
+  String data;
+  String validData = null;
+  while ((data = mySerial.readStringUntil('\n')) != null) {
+    validData = data;
+  }
+
+  if (validData == null) {
+    return;
+  };
+
+  String[] ws = split(validData, ':');
+
+  // May happen on first frame.
+  if (ws.length != 3) {
+    return;
+  }
+
+  //print(ws[0] + ":" + ws[1] + ":" + ws[2] + "\n");
+  for (int i = 0; i < ws.length; i++) {
+    float speed = float(ws[i]);
+    Wand w = wands[i];
+    w.update(speed);
+  }
+}
+
 void draw() {
   background(255);
-
-  windSpeedString = mySerial.readStringUntil('\n');
-  // On startup the reading can be incorrect so we check length
-  if (windSpeedString != null) {
-    String[] windSpeeds = split(windSpeedString, ':');
-    if (windSpeeds.length == 3) {
-      for (int i = 0; i < windSpeeds.length; i++) {
-        float speed = float(windSpeeds[i]);
-        Wand w = wands[i];
-        w.update(speed);
-      }
-    }
-  }
+  
+  updateWands();
 
   for (WaterColor w : waterColors) {
     w.draw();
