@@ -51,12 +51,14 @@ void draw() {
 
   windSpeedString = mySerial.readStringUntil('\n');
   // On startup the reading can be incorrect so we check length
-  if (windSpeedString != null && windSpeedString.length() == 6) {
+  if (windSpeedString != null) {
     String[] windSpeeds = split(windSpeedString, ':');
-    for (int i = 0; i < windSpeeds.length; i++) {
-      float speed = float(windSpeeds[i]);
-      Wand w = wands[i];
-      w.update(speed);
+    if (windSpeeds.length == 3) {
+      for (int i = 0; i < windSpeeds.length; i++) {
+        float speed = float(windSpeeds[i]);
+        Wand w = wands[i];
+        w.update(speed);
+      }
     }
   }
 
@@ -76,7 +78,7 @@ void draw() {
     Bubble bubble = bubbles.get(i);
     // A Bubbles death.
     if (bubble.isDead) {
-      waterColors.add(new WaterColor(bubble.x, bubble.y, bubble.g));
+      //waterColors.add(new WaterColor(bubble.x, bubble.y, bubble.g));
       bubbles.remove(i);
     }
   }

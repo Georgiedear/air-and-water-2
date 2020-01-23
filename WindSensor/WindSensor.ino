@@ -14,22 +14,18 @@
   Paul Badger
   code in the public domain*/
 
-//Sensor 1
-const int OutPin  = A0;   // wind sensor analog pin  hooked up to Wind P sensor "OUT" pin
-
+// Wind sensor analog pins.
+const int sensor1 = A0;
+const int sensor2 = A1;
+const int sensor3 = A2;
 
 void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
+float readSensor(int sensor) {
   // Read wind.
-  int windADunits = analogRead(OutPin);
-
-
-  // Serial.print("RW ");   // print raw A/D for debug
-  // Serial.print(windADunits);
-  // Serial.print("\t");
+  int windADunits = analogRead(sensor);
 
   // Wind formula derived from a wind tunnel data,
   // annemometer and some fancy Excel regressions.
@@ -37,10 +33,19 @@ void loop() {
   float offset = 264.0;
 
   float windMPH = windADunits < offset ? 0 : pow((((float)windADunits - offset) / 85.6814), 3.36814);
- 
-  Serial.print(windMPH);
-  //  Serial.print(windMPH1);
-  //  Serial.print(windMPH2);
+  return windMPH;
+}
+
+void loop() {
+  float mph1 = readSensor(sensor1);
+  float mph2 = readSensor(sensor2);
+  float mph3 = readSensor(sensor3);
+
+  Serial.print(mph1);
+  Serial.print(":");
+  Serial.print(0);
+  Serial.print(":");
+  Serial.print(0);
 
   Serial.print("\n");
 
