@@ -33,7 +33,8 @@ void setup() {
   wands[1] = new Wand(width * 0.5, height * 0.5);
   wands[2]= new Wand(width * 0.75, height * 0.5);
 
-  bubbleImg =  loadImage("img/Bubble_Draft.png");
+  //bubbleImg =  loadImage("img/Bubble_Draft.png");
+    bubbleImg =  loadImage("Air+Water[bubble].png");
 
   for (int i = 0; i < images.length; i++) {
     String imagePath = images[i];
