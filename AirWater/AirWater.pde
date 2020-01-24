@@ -18,7 +18,7 @@ String images[] = {
   "img/Air+Water[cherry_red].png", 
   "img/Air+Water[cloud].png", 
   "img/Air+Water[cool_blue].png", 
-  "img/Air+Water[pink_hush].png", 
+  "img/Air+Water[light_hush].png", 
   "img/Air+Water[yellow_splash].png" 
 };
 
