@@ -16,6 +16,8 @@ class WaterColor {
   void draw() {
     blendMode(DARKEST);
     image(img, x, y, g, g);
+    tint(255, 255);
+
     blendMode(BLEND);
   }
 }

@@ -7,7 +7,7 @@ Serial mySerial;
 ArrayList<Bubble> bubbles = new ArrayList<Bubble>();
 ArrayList<WaterColor> waterColors = new ArrayList<WaterColor>();
 
-final String port = "/dev/cu.usbmodem14201";
+final String port = "/dev/cu.usbmodem1421";
 
 // Bubble image.
 PImage bubbleImg; 
@@ -18,7 +18,7 @@ String images[] = {
   "img/Air+Water[cherry_red].png", 
   "img/Air+Water[cloud].png", 
   "img/Air+Water[cool_blue].png", 
-  "img/Air+Water[light_hush].png", 
+  "img/Air+Water[light_pink].png",
   "img/Air+Water[yellow_splash].png" 
 };
 
@@ -34,7 +34,7 @@ void setup() {
   wands[2]= new Wand(width * 0.75, height * 0.5);
 
   //bubbleImg =  loadImage("img/Bubble_Draft.png");
-    bubbleImg =  loadImage("Air+Water[bubble].png");
+    bubbleImg =  loadImage("img/Air+Water[bubble].png");
 
   for (int i = 0; i < images.length; i++) {
     String imagePath = images[i];
@@ -95,7 +95,7 @@ void draw() {
     Bubble bubble = bubbles.get(i);
     // A Bubbles death.
     if (bubble.isDead) {
-      //waterColors.add(new WaterColor(bubble.x, bubble.y, bubble.g));
+      waterColors.add(new WaterColor(bubble.x, bubble.y, bubble.g));
       bubbles.remove(i);
     }
   }

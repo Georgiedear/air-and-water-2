@@ -26,10 +26,16 @@ class Bubble {
   }
 
   void draw() {
+    //noStroke();
+    //fill(c, 50);
+    //ellipse(x, y, g, g);
+    //tint(255, 255);
+
     noStroke();
-    fill(c, 50);
-    ellipse(x, y, g, g);
-    tint(255, 255);
+    imageMode(CENTER);
+    image(bubbleImg, x, y, g, g);
+     tint(255, 210);
+
   }
 
   void release() {
