@@ -25,17 +25,13 @@ class Bubble {
     g += windSpeed*2;
   }
 
-  void draw() {
-    //noStroke();
-    //fill(c, 50);
-    //ellipse(x, y, g, g);
-    //tint(255, 255);
-
+  void draw() {   
+    pushStyle();
     noStroke();
     imageMode(CENTER);
+    tint(255, 210);
     image(bubbleImg, x, y, g, g);
-     tint(255, 210);
-
+    popStyle();
   }
 
   void release() {

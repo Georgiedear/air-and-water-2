@@ -11,6 +11,7 @@ class Wand {
 
   float x;
   float y;
+  float windSpeed;
 
   Wand(float x, float y) {
     this.x = x;
@@ -18,6 +19,8 @@ class Wand {
   }
 
   void update(float windSpeed) {
+    this.windSpeed = windSpeed;
+
     // True if the user is blowing right now.
     boolean blowingBubble = windSpeed > blowingThreshold;
 
